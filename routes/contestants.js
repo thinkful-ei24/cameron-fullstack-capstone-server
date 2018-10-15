@@ -37,3 +37,5 @@ const contestants = [
 router.get('/', (req, res, next) => {
   res.json(contestants);
 });
+
+module.exports=router;
