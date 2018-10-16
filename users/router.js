@@ -100,6 +100,11 @@ router.post('/', (req, res, next) => {
         password: hash
       });
     })
+    .then(result => {
+      res.location(`${req.originalUrl}/${result.id}`)
+        .status(201)
+        .json(result);
+    })
     .catch(err => {
       if (err.reason === 'ValidationError'){
         return res.status(err.code).json(err);
