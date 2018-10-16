@@ -9,8 +9,10 @@ const passport = require('passport');
 const { PORT, CLIENT_ORIGIN } = require('./config');
 const { dbConnect } = require('./db-mongoose');
 
-const contestantRouter = require('./contestants/router');
 const {router: usersRouter} = require('./users');
+const {router: contestantsRouter} = require('./contestants');
+const {router: authRouter, localStrategy, jwtStrategy} = require('./auth');
+
 const app = express();
 
 app.use(
@@ -25,8 +27,15 @@ app.use(
   })
 );
 
-app.use('/users', usersRouter);
-app.use('/contestants', contestantRouter);
+const jwtAuth = passport.authenticate('jwt', {session: false});
+
+app.use('/api/users', usersRouter);
+app.use('/api/contestants', jwtAuth, contestantsRouter);
+app.use('/api/auth', authRouter);
+
+app.use('*', (req, res) => {
+  return res.status(404).json({ message: 'Not Found' });
+});
 
 function runServer(port = PORT) {
   const server = app
