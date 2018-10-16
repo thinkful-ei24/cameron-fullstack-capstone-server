@@ -7,7 +7,7 @@ module.exports = {
         process.env.DATABASE_URL || 'mongodb://localhost:27017/bachelor',
   TEST_DATABASE_URL:
         process.env.TEST_DATABASE_URL ||
-        'mongodb://localhost:27017/bachelor-test'
+        'mongodb://localhost:27017/bachelor-test',
   JWT_SECRET:
       process.env.JWT_SECRET      
   // DATABASE_URL:

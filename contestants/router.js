@@ -1,6 +1,8 @@
 const mongoose = require('mongoose');
 const express = require('express');
 
+const {Contestant} = require('./models');
+
 const router = express.Router();
 
 const contestants = [

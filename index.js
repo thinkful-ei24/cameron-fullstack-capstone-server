@@ -3,12 +3,14 @@
 const express = require('express');
 const cors = require('cors');
 const morgan = require('morgan');
+const mongoose = require('mongoose');
+const passport = require('passport');
 
 const { PORT, CLIENT_ORIGIN } = require('./config');
 const { dbConnect } = require('./db-mongoose');
 
-const contestantRouter = require('./routes/contestants');
-
+const contestantRouter = require('./contestants/router');
+const {router: usersRouter} = require('./users');
 const app = express();
 
 app.use(
@@ -23,6 +25,7 @@ app.use(
   })
 );
 
+app.use('/api/users', usersRouter);
 app.use('/contestants', contestantRouter);
 
 function runServer(port = PORT) {
