@@ -8,13 +8,12 @@ const schema = new mongoose.Schema({
 
 schema.set('toObject', {
   virtuals: true,
-  versionKey: false,
   transform: (doc, result) => {
     delete result._id;
     delete result.__v;
   }
 });
 
-
-module.exports = mongoose.model('Contestant', schema);
+const Contestant = mongoose.model('Contestant', schema);
+module.exports = {Contestant};
 

@@ -25,7 +25,7 @@ app.use(
   })
 );
 
-app.use('/api/users', usersRouter);
+app.use('/users', usersRouter);
 app.use('/contestants', contestantRouter);
 
 function runServer(port = PORT) {
