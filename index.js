@@ -26,11 +26,13 @@ app.use(
     origin: CLIENT_ORIGIN
   })
 );
+passport.use(localStrategy);
+passport.use(jwtStrategy);
 
 const jwtAuth = passport.authenticate('jwt', {session: false});
 
 app.use('/api/users', usersRouter);
-app.use('/api/contestants', jwtAuth, contestantsRouter);
+app.use('/api/contestants', contestantsRouter);
 app.use('/api/auth', authRouter);
 
 app.use('*', (req, res) => {
