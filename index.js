@@ -33,10 +33,20 @@ const jwtAuth = passport.authenticate('jwt', {session: false});
 
 app.use('/api/users', usersRouter);
 app.use('/api/contestants', contestantsRouter);
-app.use('/api/auth', authRouter);
+app.use('/auth', authRouter);
 
-app.use('*', (req, res) => {
+app.use((req, res) => {
   return res.status(404).json({ message: 'Not Found' });
+});
+
+app.use((err, req, res, next) => {
+  if (err.status) {
+    const errBody = Object.assign({}, err, { message: err.message });
+    res.status(err.status).json(errBody);
+  } else {
+    console.error(err);
+    res.status(500).json({ message: 'Internal Server Error' });
+  }
 });
 
 function runServer(port = PORT) {
