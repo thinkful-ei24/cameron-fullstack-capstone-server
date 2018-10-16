@@ -5,6 +5,7 @@ const {Contestant} = require('./models');
 
 const router = express.Router();
 
+router.use(express.json());
 
 router.get('/', (req, res, next) => {
 
