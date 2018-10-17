@@ -47,7 +47,7 @@ router.post('/', (req, res, next) => {
 
   const sizedFields = {
     username: {
-      min: 1
+      min: 2
     },
     password: {
       min: 8,
