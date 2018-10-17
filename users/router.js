@@ -101,19 +101,10 @@ router.post('/', (req, res, next) => {
       });
     })
     .then(result => {
-      res.location(`${req.originalUrl}/${result.id}`)
-        .status(201)
+      res.status(201)
         .json(result);
     })
-    .catch(err => {
-      if (err.reason === 'ValidationError'){
-        return res.status(err.code).json(err);
-      }
-      res.status(500).json({
-        code: 500,
-        message: 'Internal server error'
-      });
-    });
+    .catch(err => next(err));
 });
 
 module.exports = {router};

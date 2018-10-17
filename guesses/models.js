@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const contestants = [
+const contestantList = [
   'Alex',
   'Blake',
   'Chase',
@@ -32,16 +32,16 @@ const contestants = [
 ];
 const schema = new mongoose.Schema({
   userId: {type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true},
-  week1: [{type: String, enum: contestants}],
-  week2: [{type: String, enum: contestants}],
-  week3: [{type: String, enum: contestants}],
-  week4: [{type: String, enum: contestants}],
-  week5: [{type: String, enum: contestants}],
-  week6: [{type: String, enum: contestants}],
-  week7: [{type: String, enum: contestants}],
-  week8: [{type: String, enum: contestants}],
-  week9: [{type: String, enum: contestants}],
-  week10: [{type: String, enum: contestants}]
+  week1: [{type: String, enum: contestantList}],
+  week2: [{type: String, enum: contestantList}],
+  week3: [{type: String, enum: contestantList}],
+  week4: [{type: String, enum: contestantList}],
+  week5: [{type: String, enum: contestantList}],
+  week6: [{type: String, enum: contestantList}],
+  week7: [{type: String, enum: contestantList}],
+  week8: [{type: String, enum: contestantList}],
+  week9: [{type: String, enum: contestantList}],
+  week10: [{type: String, enum: contestantList}]
 });
 
 schema.set('toObject', {
@@ -53,4 +53,4 @@ schema.set('toObject', {
 });
 
 const Guess = mongoose.model('Guess', schema);
-module.exports = {Guess};
+module.exports = {Guess, contestantList};

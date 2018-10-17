@@ -11,6 +11,7 @@ const { dbConnect } = require('./db-mongoose');
 
 const {router: usersRouter} = require('./users');
 const {router: contestantsRouter} = require('./contestants');
+const {router: guessRouter} = require('./guesses');
 const {router: authRouter, localStrategy, jwtStrategy} = require('./auth');
 
 const app = express();
@@ -33,6 +34,7 @@ const jwtAuth = passport.authenticate('jwt', {session: false});
 
 app.use('/api/users', usersRouter);
 app.use('/api/contestants', jwtAuth, contestantsRouter);
+app.use('/api/guesses', jwtAuth, guessRouter);
 app.use('/auth', authRouter);
 
 app.use((req, res) => {
@@ -40,9 +42,10 @@ app.use((req, res) => {
 });
 
 app.use((err, req, res, next) => {
-  if (err.status) {
+  if (err.status || err.code) {
+    const status = err.status || err.code;
     const errBody = Object.assign({}, err, { message: err.message });
-    res.status(err.status).json(errBody);
+    res.status(status).json(errBody);
   } else {
     console.error(err);
     res.status(500).json({ message: 'Internal Server Error' });
