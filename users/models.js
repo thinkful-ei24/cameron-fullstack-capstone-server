@@ -4,7 +4,7 @@ const bcrypt = require('bcryptjs');
 const schema = new mongoose.Schema({
   username: {type: String, required: true, unique: true},
   password: {type: String, required: true},
-  status: {type: String, default: 'choosing'}
+  status: {type: String, default: 'choosing', required: true}
 });
 
 schema.set('toObject', {
