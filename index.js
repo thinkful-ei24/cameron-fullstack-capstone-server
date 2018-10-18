@@ -13,6 +13,7 @@ const {router: usersRouter} = require('./users');
 const {router: contestantsRouter} = require('./contestants');
 const {router: guessRouter} = require('./guesses');
 const {router: resultRouter} = require('./results');
+const {router: statusRouter} = require('./status');
 const {router: authRouter, localStrategy, jwtStrategy} = require('./auth');
 
 const app = express();
@@ -37,6 +38,7 @@ app.use('/api/users', usersRouter);
 app.use('/api/contestants', jwtAuth, contestantsRouter);
 app.use('/api/guesses', jwtAuth, guessRouter);
 app.use('/api/results', jwtAuth, resultRouter);
+app.use('/api/status', jwtAuth, statusRouter);
 app.use('/auth', authRouter);
 
 app.use((req, res) => {
