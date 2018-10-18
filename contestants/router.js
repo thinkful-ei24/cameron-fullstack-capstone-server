@@ -9,9 +9,10 @@ const router = express.Router();
 router.use(express.json());
 
 router.get('/', (req, res, next) => {
-  Contestant.find({weekName: 'week0'})
+  Contestant.findOne({weekName: 'week0'})
     .then(results => {
-      return results.map(contestant => contestant.name);
+      console.log(results);
+      return results.contestants.map(contestant => contestant.name);
     })
     .then(results => res.json(results))
     .catch(err => next(err));

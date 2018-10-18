@@ -19,14 +19,8 @@ const jwtAuth = passport.authenticate('jwt', {session: false});
 
 router.use(express.json());
 router.post('/login', localAuth, (req, res) => {
-  User.findOne({username: req.body.username})
-    .then(result => {
-      const authToken = createAuthToken({
-        username: req.body.username,
-        status: result.status
-      });
-      res.json({authToken});  
-    });
+  const authToken = createAuthToken({username: req.body.username});
+  res.json({authToken});  
 });
 
 
