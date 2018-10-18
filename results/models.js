@@ -1,8 +1,8 @@
 const mongoose = require('mongoose');
 
 const schema = new mongoose.Schema({
-  weekName: {type: String, required: true, unique: true},
-  contestants: [{type: mongoose.Schema.Types.Mixed}]
+  userId: {type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true},
+  scores: [{type: Number}]
 });
 
 schema.set('toObject', {
@@ -13,6 +13,5 @@ schema.set('toObject', {
   }
 });
 
-const Contestant = mongoose.model('Contestant', schema);
-module.exports = {Contestant};
-
+const Result = mongoose.model('Result', schema);
+module.exports = {Result};

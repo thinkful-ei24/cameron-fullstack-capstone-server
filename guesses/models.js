@@ -31,7 +31,7 @@ const contestantList = [
   'Wills'
 ];
 const schema = new mongoose.Schema({
-  userId: {type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true},
+  userId: {type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true, unique: true},
   week1: [{type: String, enum: contestantList}],
   week2: [{type: String, enum: contestantList}],
   week3: [{type: String, enum: contestantList}],

@@ -2,14 +2,14 @@ const mongoose = require('mongoose');
 const express = require('express');
 
 const {Contestant} = require('./models');
+const {User} = require('../users');
 
 const router = express.Router();
 
 router.use(express.json());
 
 router.get('/', (req, res, next) => {
-
-  Contestant.find()
+  Contestant.find({weekName: 'week0'})
     .then(results => {
       return results.map(contestant => contestant.name);
     })

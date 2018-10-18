@@ -1,90 +1,177 @@
+const {Contestant} = require('./models');
+const mongoose = require('mongoose');
 
-const contestants = [
-  {name: 'Alex',
-    photo: '',
-    weekEliminated: 'week2'},
-  {name: 'Blake',
-    photo: '',
-    weekEliminated: 'week10'},
-  {name: 'Chase',
-    photo: '',
-    weekEliminated: 'week1'},
-  {name: 'Chris',
-    photo: '',
-    weekEliminated: 'week6'},
-  {name: 'Christian',
-    photo: '',
-    weekEliminated: 'week1'},
-  {name: 'Christon',
-    photo: '',
-    weekEliminated: 'week4'},
-  {name: 'Clay',
-    photo: '',
-    weekEliminated: 'week3'},
-  {name: 'Colton',
-    photo: '',
-    weekEliminated: 'week8'},
-  {name: 'Connor',
-    photo: '',
-    weekEliminated: 'week6'},
-  {name: 'Darius',
-    photo: '',
-    weekEliminated: 'week1'},
-  {name: 'David',
-    photo: '',
-    weekEliminated: 'week5'},
-  {name: 'Garrett',
-    photo: '',
-    weekEliminated: 'winner'},
-  {name: 'Grant',
-    photo: '',
-    weekEliminated: 'week1'},
-  {name: 'Jake',
-    photo: '',
-    weekEliminated: 'week1'},
-  {name: 'Jason',
-    photo: '',
-    weekEliminated: 'week9'},
-  {name: 'Jean Blanc',
-    photo: '',
-    weekEliminated: 'week4'},
-  {name: 'Joe',
-    photo: '',
-    weekEliminated: 'week1'},
-  {name: 'John',
-    photo: '',
-    weekEliminated: 'week5'},
-  {name: 'Jordan',
-    photo: '',
-    weekEliminated: 'week5'},
-  {name: 'Kamil',
-    photo: '',
-    weekEliminated: 'week1'},
-  {name: 'Leo',
-    photo: '',
-    weekEliminated: 'week7'},
-  {name: 'Lincoln',
-    photo: '',
-    weekEliminated: 'week6'},
-  {name: 'Mike',
-    photo: '',
-    weekEliminated: 'week3'},
-  {name: 'Nick',
-    photo: '',
-    weekEliminated: 'week4'},
-  {name: 'Rickey',
-    photo: '',
-    weekEliminated: 'week2'},
-  {name: 'Ryan',
-    photo: '',
-    weekEliminated: 'week3'},
-  {name: 'Trent',
-    photo: '',
-    weekEliminated: 'week2'},
-  {name: 'Wills',
-    photo: '',
-    weekEliminated: 'week7'},
-];
+const week0 = {weekName: 'week0',
+  contestants: [
+    {name: 'Alex', photo: ''},
+    {name: 'Blake', photo: ''},
+    {name: 'Chase', photo: ''},
+    {name: 'Chris', photo: ''},
+    {name: 'Christian', photo: ''},
+    {name: 'Christon', photo: ''},
+    {name: 'Clay', photo: ''},
+    {name: 'Colton', photo: ''},
+    {name: 'Connor',photo: ''},
+    {name: 'Darius', photo: ''},
+    {name: 'David', photo: ''},
+    {name: 'Garrett', photo: ''},
+    {name: 'Grant', photo: ''},
+    {name: 'Jake', photo: ''},
+    {name: 'Jason', photo: ''},
+    {name: 'Jean Blanc',photo: ''},
+    {name: 'Joe', photo: ''},
+    {name: 'John', photo: ''},
+    {name: 'Jordan',photo: ''},
+    {name: 'Kamil', photo: ''},
+    {name: 'Leo', photo: ''},
+    {name: 'Lincoln', photo: ''},
+    {name: 'Mike', photo: ''},
+    {name: 'Nick', photo: ''},
+    {name: 'Rickey', photo: ''},
+    {name: 'Ryan', photo: ''},
+    {name: 'Trent', photo: ''},
+    {name: 'Wills', photo: ''},
+  ]};
+
+  const week1 = {weekName: 'week1',
+  contestants: [
+    {name: 'Alex', photo: ''},
+    {name: 'Blake', photo: ''},
+    {name: 'Chris', photo: ''},
+    {name: 'Christon', photo: ''},
+    {name: 'Clay', photo: ''},
+    {name: 'Colton', photo: ''},
+    {name: 'Connor',photo: ''},
+    {name: 'David', photo: ''},
+    {name: 'Garrett', photo: ''},
+    {name: 'Jason', photo: ''},
+    {name: 'Jean Blanc',photo: ''},
+    {name: 'John', photo: ''},
+    {name: 'Jordan',photo: ''},
+    {name: 'Leo', photo: ''},
+    {name: 'Lincoln', photo: ''},
+    {name: 'Mike', photo: ''},
+    {name: 'Nick', photo: ''},
+    {name: 'Rickey', photo: ''},
+    {name: 'Ryan', photo: ''},
+    {name: 'Trent', photo: ''},
+    {name: 'Wills', photo: ''},
+  ]};
+
+const week2 = {weekName: 'week2',
+  contestants: [
+    {name: 'Blake', photo: ''},
+    {name: 'Chris', photo: ''},
+    {name: 'Christon', photo: ''},
+    {name: 'Clay', photo: ''},
+    {name: 'Colton', photo: ''},
+    {name: 'Connor',photo: ''},
+    {name: 'David', photo: ''},
+    {name: 'Garrett', photo: ''},
+    {name: 'Jason', photo: ''},
+    {name: 'Jean Blanc',photo: ''},
+    {name: 'John', photo: ''},
+    {name: 'Jordan',photo: ''},
+    {name: 'Leo', photo: ''},
+    {name: 'Lincoln', photo: ''},
+    {name: 'Mike', photo: ''},
+    {name: 'Nick', photo: ''},
+    {name: 'Ryan', photo: ''},
+    {name: 'Wills', photo: ''},
+  ]};
+
+const week3 = {weekName: 'week3',
+  contestants: [
+    {name: 'Blake', photo: ''},
+    {name: 'Chris', photo: ''},
+    {name: 'Christon', photo: ''},
+    {name: 'Colton', photo: ''},
+    {name: 'Connor',photo: ''},
+    {name: 'David', photo: ''},
+    {name: 'Garrett', photo: ''},
+    {name: 'Jason', photo: ''},
+    {name: 'Jean Blanc',photo: ''},
+    {name: 'John', photo: ''},
+    {name: 'Jordan',photo: ''},
+    {name: 'Leo', photo: ''},
+    {name: 'Lincoln', photo: ''},
+    {name: 'Nick', photo: ''},
+    {name: 'Wills', photo: ''},
+  ]};
+
+const week4 = {weekName: 'week4',
+  contestants: [
+    {name: 'Blake', photo: ''},
+    {name: 'Chris', photo: ''},
+    {name: 'Colton', photo: ''},
+    {name: 'Connor',photo: ''},
+    {name: 'David', photo: ''},
+    {name: 'Garrett', photo: ''},
+    {name: 'Jason', photo: ''},
+    {name: 'John', photo: ''},
+    {name: 'Jordan',photo: ''},
+    {name: 'Leo', photo: ''},
+    {name: 'Lincoln', photo: ''},
+    {name: 'Wills', photo: ''},
+  ]};  
+
+const week5 = {weekName: 'week5',
+  contestants: [
+    {name: 'Blake', photo: ''},
+    {name: 'Chris', photo: ''},
+    {name: 'Colton', photo: ''},
+    {name: 'Connor',photo: ''},
+    {name: 'Garrett', photo: ''},
+    {name: 'Jason', photo: ''},
+    {name: 'Leo', photo: ''},
+    {name: 'Lincoln', photo: ''},
+    {name: 'Wills', photo: ''},
+  ]};  
+
+const week6 = {weekName: 'week6',
+  contestants: [
+    {name: 'Blake', photo: ''},
+    {name: 'Colton', photo: ''},
+    {name: 'Garrett', photo: ''},
+    {name: 'Jason', photo: ''},
+    {name: 'Leo', photo: ''},
+    {name: 'Wills', photo: ''},
+  ]}; 
+  
+const week7 = {weekName: 'week7',
+  contestants: [
+    {name: 'Blake', photo: ''},
+    {name: 'Colton', photo: ''},
+    {name: 'Garrett', photo: ''},
+    {name: 'Jason', photo: ''}
+  ]};  
+
+const week8 = {weekName: 'week8',
+  contestants: [
+    {name: 'Blake', photo: ''},
+    {name: 'Garrett', photo: ''},
+    {name: 'Jason', photo: ''}
+  ]}; 
+
+const week9 = {weekName: 'week9',
+  contestants: [
+    {name: 'Blake', photo: ''},
+    {name: 'Garrett', photo: ''}
+  ]}; 
+
+const week10 = {weekName: 'week10',
+  contestants: [
+    {name: 'Garrett', photo: ''}
+  ]};
+  
+
+db.contestants.insertMany([week0, week1, week2, week3, week4, week5, week6, week7, week8, week9, week10]);  
+  
+
+
+
+
+
 
 
 
