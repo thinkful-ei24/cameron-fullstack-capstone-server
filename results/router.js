@@ -2,28 +2,44 @@ const mongoose = require('mongoose');
 const express = require('express');
 
 const {Result} = require('./models');
+const {Guess} = require('../guesses');
 const {User} = require('../users');
+const {Contestant} = require('../contestants');
+const {generateResults} = require('./generateResults');
 const router = express.Router();
 
 router.get('/', (req, res, next) => {
-  const {username, status} = req.user;
-  const {week} = req.body;
-  if(!week){
-    return res.status(422).json({
-      code: 422,
-      reason: 'ValidationError',
-      message: 'Missing week number',
-      location: 'week'
+  const {username} = req.user;
+  const week = Math.floor(Math.random()*10+1);
+
+  let userId, guesses, actualResults;
+
+  User.findOne({username})
+    .then(result => {
+      userId = result.id;
+      if(result.status !== 'results'){
+        return res.status(422).json({
+          code: 422,
+          reason: 'ValidationError',
+          message: 'Please make your selection first',
+          location: 'status'
+        });
+      }
+      return userId;
+    })
+    .then(() => {
+      return Guess.findOne({userId});
+    })
+    .then(result => {
+      guesses=result;
+      return Contestant.find();
+    })
+    .then(results => {
+      actualResults = results;
+      const feedback = generateResults(week, guesses, actualResults);
+      res.json(feedback);
     });
-  }
-  if(status !== 'results'){
-    return res.status(422).json({
-      code: 422,
-      reason: 'ValidationError',
-      message: 'Please make your selection first',
-      location: 'status'
-    });
-  }
+
 });
 
 module.exports = {router};
