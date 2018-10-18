@@ -12,12 +12,13 @@ router.get('/', (req, res, next) => {
   const {username} = req.user;
   const week = Math.floor(Math.random()*10+1);
 
-  let userId, guesses, actualResults;
+  let userId, guesses, actualResults, status;
 
   User.findOne({username})
     .then(result => {
       userId = result.id;
-      if(result.status !== 'results'){
+      status = result.status;
+      if(status !== 'results'){
         return res.status(422).json({
           code: 422,
           reason: 'ValidationError',
@@ -37,8 +38,9 @@ router.get('/', (req, res, next) => {
     .then(results => {
       actualResults = results;
       const feedback = generateResults(week, guesses, actualResults);
-      res.json(feedback);
-    });
+      res.json({feedback, status});
+    })
+    .catch(err => next(err));
 
 });
 
