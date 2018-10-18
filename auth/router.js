@@ -1,6 +1,7 @@
 const express = require('express');
 const passport = require('passport');
 const jwt = require('jsonwebtoken');
+const {User} = require('../users');
 
 const {JWT_EXPIRY, JWT_SECRET} = require('../config');
 const router = express.Router();
@@ -18,8 +19,14 @@ const jwtAuth = passport.authenticate('jwt', {session: false});
 
 router.use(express.json());
 router.post('/login', localAuth, (req, res) => {
-  const authToken = createAuthToken({username: req.body.username});
-  res.json({authToken});
+  return User.find({username: req.body.username})
+    .then(([user]) => {
+      const authToken = createAuthToken({
+        username: req.body.username,
+        status: user.status
+      });
+      res.json({authToken});
+    });
 });
 
 router.post('/refresh', jwtAuth, (req, res) => {
