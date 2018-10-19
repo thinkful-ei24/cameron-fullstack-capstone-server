@@ -133,7 +133,7 @@ router.post('/', (req, res, next) => {
         week1, week2, week3, week4, week5,
         week6, week7, week8, week9, week10
       };
-      const scores = {userId, scores: generateScoreArray(newData, actualResults)};
+      const scores = {userId, username, scores: generateScoreArray(newData, actualResults)};
       return Promise.all([
         Guess.create(newData), 
         User.findOneAndUpdate({username}, {status: 'results'},{new: true}),

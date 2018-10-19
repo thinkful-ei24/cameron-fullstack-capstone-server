@@ -2,7 +2,8 @@ const mongoose = require('mongoose');
 
 const schema = new mongoose.Schema({
   userId: {type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true},
-  scores: [{type: Number}]
+  scores: [{type: Number}],
+  username: {type: String, required: true, unique: true}
 });
 
 schema.set('toObject', {

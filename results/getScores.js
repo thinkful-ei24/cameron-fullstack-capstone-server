@@ -1,6 +1,5 @@
 const generateScore = (guess, actual, week)=>{
   let score=0;
-  console.log(guess, actual);
   for (let i=0; i<guess.length; i++){
     if(actual.includes(guess[i])){
       score ++;
