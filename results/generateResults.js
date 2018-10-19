@@ -1,4 +1,3 @@
-const {Contestant} = require('../contestants');
 
 const checkResults = function(guess, actualResult){
   let arr=[];

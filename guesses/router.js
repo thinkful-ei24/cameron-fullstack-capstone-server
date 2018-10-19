@@ -99,6 +99,10 @@ router.post('/', (req, res, next) => {
   const {username} = req.user;
   const {week1, week2, week3, week4, week5, 
     week6, week7, week8, week9, week10} = req.body;
+  
+  let userId;
+  let newData;
+
   return User.find({username})
     .then(([user]) => {
       if (!user){
@@ -114,10 +118,11 @@ router.post('/', (req, res, next) => {
           location: 'status'
         });
       }
-      return user.id;
+      userId=user.id;
+      return userId;
     })
-    .then(userId => {
-      const newData = {
+    .then(() => {
+      newData = {
         userId,
         week1, week2, week3, week4, week5,
         week6, week7, week8, week9, week10
