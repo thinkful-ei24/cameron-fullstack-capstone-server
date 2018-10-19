@@ -1,5 +1,6 @@
 const generateScore = (guess, actual, week)=>{
   let score=0;
+  console.log(guess, actual);
   for (let i=0; i<guess.length; i++){
     if(actual.includes(guess[i])){
       score ++;
@@ -7,11 +8,14 @@ const generateScore = (guess, actual, week)=>{
   }return score * week;
 };
 
-const generateScoreArray = (guesses, actualResults){
+const generateScoreArray = (guesses, actualResults) => {
   let scores = [];
   for(let i=1; i<=10; i++){
     const weekNum=`week${i}`;
-    scores.push(generateScore(guesses[weekNum], actualResults[weekNum], i));
+    const results = actualResults.find(week => week.weekName === weekNum).contestants.map(person => person.name);
+    scores.push(generateScore(guesses[weekNum], results, i));
   }
   return scores;
-}
+};
+
+module.exports = {generateScoreArray};

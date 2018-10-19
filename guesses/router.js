@@ -3,6 +3,9 @@ const express = require('express');
 
 const {Guess, contestantList} = require('./models');
 const {User} = require('../users/models');
+const {Contestant} = require('../contestants');
+const {Result} = require('../results'); 
+const {generateScoreArray} = require('../results/getScores');
 
 const router = express.Router();
 
@@ -100,8 +103,7 @@ router.post('/', (req, res, next) => {
   const {week1, week2, week3, week4, week5, 
     week6, week7, week8, week9, week10} = req.body;
   
-  let userId;
-  let newData;
+  let userId, newData, actualResults;
 
   return User.find({username})
     .then(([user]) => {
@@ -122,17 +124,21 @@ router.post('/', (req, res, next) => {
       return userId;
     })
     .then(() => {
+      return Contestant.find();
+    })
+    .then((results) => {
+      actualResults = results;
       newData = {
         userId,
         week1, week2, week3, week4, week5,
         week6, week7, week8, week9, week10
       };
-      return Guess.create(newData);
+      const scores = {userId, scores: generateScoreArray(newData, actualResults)};
+      return Promise.all([
+        Guess.create(newData), 
+        User.findOneAndUpdate({username}, {status: 'results'},{new: true}),
+        Result.create(scores)]);
     })
-    .then(() => {
-      return User.findOneAndUpdate({username}, {status: 'results'},
-        {new: true});
-    }) 
     .then(result => {
       res.status(201)
         .json(result);
