@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 const express = require('express');
 
 const {Result} = require('./models');
-const {Guess} = require('../guesses');
+const {Guess} = require('../guesses/models');
 const {User} = require('../users');
 const {Contestant} = require('../contestants');
 const {generateResults} = require('./generateResults');
@@ -12,8 +12,8 @@ router.get('/', (req, res, next) => {
   const {username} = req.user;
   const week = Math.floor(Math.random()*10+1);
 
-  let userId, guesses, actualResults, status;
-
+  let userId, guesses, actualResults, 
+    status, feedback;
   User.findOne({username})
     .then(result => {
       userId = result.id;
@@ -29,16 +29,25 @@ router.get('/', (req, res, next) => {
       return userId;
     })
     .then(() => {
-      return Guess.findOne({userId});
-    })
-    .then(result => {
-      guesses=result;
-      return Contestant.find();
+      return Promise.all([
+        Guess.findOne({userId}),
+        Contestant.find(),
+        Result.findOne({userId})
+      ]);
     })
     .then(results => {
-      actualResults = results;
-      const feedback = generateResults(week, guesses, actualResults);
-      res.json({feedback, status});
+      guesses=results[0];
+      actualResults = results[1];
+      let scores = [];
+      for (let i=0; i<10; i++){
+        if(i<=week){
+          scores.push(results[2].scores[i]);
+        }else{
+          scores.push('');
+        }
+      }
+      feedback = generateResults(week, guesses, actualResults);
+      return res.json({feedback, status, scores});
     })
     .catch(err => next(err));
 

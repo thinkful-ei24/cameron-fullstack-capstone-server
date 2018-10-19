@@ -137,11 +137,12 @@ router.post('/', (req, res, next) => {
       return Promise.all([
         Guess.create(newData), 
         User.findOneAndUpdate({username}, {status: 'results'},{new: true}),
-        Result.create(scores)]);
+        Result.create(scores)
+      ]);
     })
     .then(result => {
       res.status(201)
-        .json(result);
+        .json(result[1]);
     })
     .catch(err => next(err)); 
 
