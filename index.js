@@ -47,7 +47,7 @@ app.use('/auth', authRouter);
 // });
 
 app.use('*', (req, res) => {
-  res.sendFile('index.html', {root: path.join(_dirname, '../public')});
+  res.sendFile('index.html', {root: path.join(__dirname, '../public')});
 });
 
 app.use((err, req, res, next) => {
