@@ -13,6 +13,7 @@ const router = express.Router();
 // the week by one each week that the show aired so that users could get real-time results
 const week = Math.floor(Math.random()*10+1);
 
+
 router.get('/', (req, res, next) => {
   const {username} = req.user;
 
