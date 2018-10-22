@@ -41,7 +41,7 @@ app.use('/api/results', jwtAuth, resultRouter);
 app.use('/api/status', jwtAuth, statusRouter);
 app.use('/auth', authRouter);
 
-app.use((req, res) => {
+app.use('*', (req, res) => {
   return res.status(404).json({ message: 'Not Found' });
 });
 
