@@ -44,7 +44,7 @@ router.get('/', (req, res, next) => {
       actualResults = results[1];
       let scores = [];
       for (let i=0; i<10; i++){
-        if(i<=week){
+        if(i<=week-1){
           scores.push(results[2].scores[i]);
         }else{
           scores.push('');
