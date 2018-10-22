@@ -1,4 +1,7 @@
 const getTotalScore = (week, array) => {
+  if(week === 1){
+    return array[0];
+  }
   const score = array
     .filter((score, index) => index + 1 < week)
     .reduce((accum, currentValue) => accum + currentValue);
