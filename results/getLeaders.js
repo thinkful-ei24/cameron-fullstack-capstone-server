@@ -1,9 +1,6 @@
 const getTotalScore = (week, array) => {
-  if(week === 1){
-    return array[0];
-  }
   const score = array
-    .filter((score, index) => index + 1 < week)
+    .filter((score, index) => index + 1 <= week)
     .reduce((accum, currentValue) => accum + currentValue);
   return score;  
 };
@@ -35,6 +32,3 @@ const getScores = (week, results) => {
 };
 
 module.exports = {getScores};
-
-const array=[{score: 5}, {score: 6}, {score: 1}, {score: 10}];
-console.log(array.sort(compare));
