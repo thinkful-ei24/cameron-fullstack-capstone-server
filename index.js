@@ -5,6 +5,7 @@ const cors = require('cors');
 const morgan = require('morgan');
 const mongoose = require('mongoose');
 const passport = require('passport');
+const path = require('path');
 
 const { PORT, CLIENT_ORIGIN } = require('./config');
 const { dbConnect } = require('./db-mongoose');
@@ -41,8 +42,12 @@ app.use('/api/results', jwtAuth, resultRouter);
 app.use('/api/status', jwtAuth, statusRouter);
 app.use('/auth', authRouter);
 
+// app.use('*', (req, res) => {
+//   return res.status(404).json({ message: 'Not Found' });
+// });
+
 app.use('*', (req, res) => {
-  return res.status(404).json({ message: 'Not Found' });
+  res.sendFile('index.html', {root: path.join(_dirname, '../public')});
 });
 
 app.use((err, req, res, next) => {
