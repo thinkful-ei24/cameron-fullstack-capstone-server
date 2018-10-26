@@ -115,7 +115,7 @@ router.post('/', (req, res, next) => {
         });
       } else if(user.status !=='choosing'){
         return Promise.reject({
-          code: 401,
+          code: 422,
           message: 'You have already submitted your guesses',
           location: 'status'
         });

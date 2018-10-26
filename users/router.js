@@ -14,7 +14,7 @@ router.post('/', (req, res, next) => {
     return res.status(422).json({
       code: 422,
       reason: 'ValidationError',
-      message: 'Missing',
+      message: `Missing ${missingField}`,
       location: missingField
     });
   }
@@ -27,7 +27,7 @@ router.post('/', (req, res, next) => {
     return res.status(422).json({
       code: 422,
       reason: 'ValidationError',
-      message: 'Incorrect field type: expected string',
+      message: `Incorrect field type for ${nonStringField}: expected string`,
       location: nonStringField
     });
   }
