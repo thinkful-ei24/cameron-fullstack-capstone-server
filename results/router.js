@@ -11,7 +11,8 @@ const router = express.Router();
 
 // this allows us to have a random week when users submit their requests; if this was live, we would just update
 // the week by one each week that the show aired so that users could get real-time results
-const week = Math.floor(Math.random()*10+1);
+// const week = Math.floor(Math.random()*10+1);
+const week=8;
 
 
 router.get('/', (req, res, next) => {
